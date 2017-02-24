@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Vue源码学习</title>
+</head>
+<body>
+<script type="text/javascript">
+	function Observer(data) {
+		this.data = data;
+		this.walk(data);
+	}
+	let zhixuan = Observer.prototype;
+	//进行递归，找出所有的键值对，且值不是对象为止
+	zhixuan.walk = function(obj) {
+		for (let key in obj) {
+			if (obj.hasOwnProperty(key)) {
+				let val = obj[key];
+				if (typeof val === 'object') {
+					new Observer(val);
+				}
+				this.convert(key, val);
+			}
+		}
+	}
+	//给键值绑定setter和getter，观察数据变动
+	zhixuan.convert = function(key, val) {
+		Object.defineProperty(this.data, key, {
+			enumerable: true,
+			configurable: true,
+			get: function () {
+				console.log('你访问了' + key);
+				return val
+			},
+			set: function (newVal) {
+				console.log('你设置了' +  key);
+				console.log('新的' + key + ' = ' + newVal);
+				val = newVal;
+			}
+		})
+	};
+	let app1 = new Observer({
+	  name: 'youngwind',
+	  age: 25
+	});
+
+	let app2 = new Observer({
+	  university: 'bupt',
+	  major: 'computer'
+	});
+</script>
+</body>
+</html>
