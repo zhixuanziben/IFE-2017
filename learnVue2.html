@@ -10,6 +10,7 @@
 <script type="text/javascript">
 	function Observer(data) {
 		this.data = data;
+		this.clientList = {};
 		this.walk(data);
 	}
 	let zhixuan = Observer.prototype;
@@ -42,10 +43,48 @@
 				console.log('你设置了' +  key);
 				console.log('新的' + key + ' = ' + newVal);
 				val = newVal;
+			},
+			$watch: function(key, fn) {
+				var clientList = {},
+					listen,
+					trigger;
+				listen = function(key, fn) {
+					if(!clientList[key]) {
+						clientList[key] = [];
+					}
+					clientList[key].push(fn);
+				};
+				trigger = function() {
+					var key = Array.prototype.shift.call(arguments);
+					var fns = clientList[key];
+					if(!fns || fns.length === 0) {
+						return false;
+					};
+					for (var i = 0, fn; fn = fns[i++];) {
+						fn.apply(this, arguments);
+					};
+				};
 			}
+
 		})
 	};
-	var Event = (function(){
+	/*zhixuan.$watch = function(key, fn) {
+		if(!this.clientList[key]) {
+			this.clientList[key] = [];
+		}
+		this.clientList[key].push(fn);
+	}
+	zhixuan.trigger = function() {
+		var key = Array.prototype.shift.call(arguments);
+		var fns = clientList[key];
+		if(!fns || fns.length === 0) {
+			return false;
+		};
+		for (var i = 0, fn; fn = fns[i++];) {
+			fn.apply(this, arguments);
+		};
+	}*/
+	/*var Event = (function(){
 		var clientList = {},
 			$watch,
 			trigger;
@@ -69,19 +108,17 @@
 			$watch: $watch,
 			trigger: trigger
 		}
-	})();
-	Event.$watch('age', function(age) {
-		 console.log(`我的年纪变了，现在已经是：${age}岁了`)
-	});
-	Event.trigger('age', 90);
+	})();*/
 	let app1 = new Observer({
-        name: 'youngwind',
+       	name: 'youngwind',
         age: 25
 	});
- 	app1.data.name = {
-        lastName: 'liang',
-        firstName: 'shaofeng'
- 	};
+	// 你需要实现 $watch 这个 API
+ 	app1.$watch('age', function(age) {
+        console.log(`我的年纪变了，现在已经是：${age}岁了`)
+ 	});
+
+	app1.data.age = 100; // 输出：'我的年纪变了，现在已经是100岁了'
 
 </script>
 </body>
