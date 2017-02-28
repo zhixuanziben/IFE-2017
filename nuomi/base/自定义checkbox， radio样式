@@ -15,6 +15,7 @@
 				vertical-align: middle;
 				display: inline-block;
 				text-align: center;
+				cursor: pointer;
 				line-height: 30px;
 				border-radius: 50%;
 				width: 30px;
@@ -40,6 +41,7 @@
 			.check-box + label {
 				display: inline-block;
 				vertical-align: middle;
+				cursor: pointer;
 				width: 30px;
 				height: 30px;
 				background-color: pink;
@@ -53,15 +55,48 @@
 				width: 20px;
 				height: 20px;
 			}
+
+			.spr {
+				display: none;
+			}
+			.spr + label {
+				display: inline-block;
+				cursor: pointer;
+				width: 16px;
+				height: 16px;
+				border-radius: 50%;
+				border: 2px solid red;
+			}
+			.spr:checked + label {
+				background-image: url(input-bg.png);
+				background-repeat: no-repeat;
+				background-position: -59px -10px;
+			}
+
+			.bg-box {
+				display: none;
+			}
+			.bg-box + label {
+				width: 14px;
+				height: 14px;
+				cursor: pointer;
+				display: inline-block;
+				border: 2px solid red;
+			}
+			.bg-box:checked + label {
+				background-image: url(input-bg.png);
+				background-repeat: no-repeat;
+				background-position: -60px -32px;
+			}
 		</style>
 	</head>
 	<body>
 		<h1>伪元素实现</h1>
-		<div class="radio">
+		<div>
 			<p>单选框</p>
-			<input type="radio" name="study" id="man" class="old-radio">
+			<input type="radio" name="sex" id="man" class="old-radio">
 			<label for="man"></label>
-			<input type="radio" name="study" id="woman" class="old-radio">
+			<input type="radio" name="sex" id="woman" class="old-radio">
 			<label for="woman"></label>
 		</div>
 		<div class="checkbox">
@@ -70,6 +105,21 @@
 			<label for="checkbox"></label>
 			<input type="checkbox" name="a" id="checkbox2" class="check-box">
 			<label for="checkbox2"></label>
+		</div>
+		<h1>雪碧图实现</h1>
+		<div>
+			<p>单选框</p>
+			<input type="radio" name="school" id="baidu" class="spr">
+			<label for="baidu"></label>
+			<input type="radio" name="school" id="ali" class="spr">
+			<label for="ali"></label>
+		</div>
+		<div>
+			<p>多选框</p>
+			<input type="checkbox" name="" id="box1" class="bg-box">
+			<label for="box1"></label>
+			<input type="checkbox" name="" id="box2" class="bg-box">
+			<label for="box2"></label>
 		</div>
 	</body>
 </html>
