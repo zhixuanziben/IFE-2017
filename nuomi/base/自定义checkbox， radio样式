@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			/* 把原单选框给隐藏，视觉上使用label标签替代 */
+			.old-radio {
+				display: none;
+			}
+			.old-radio + label {
+				background-color: pink;
+				/* 由于给label标签设置了display: inline-block，所以默认的是基线对其，会产生视觉bug，因此设置middle把基线对其的规则覆盖
+				*/
+				vertical-align: middle;
+				display: inline-block;
+				text-align: center;
+				line-height: 30px;
+				border-radius: 50%;
+				width: 30px;
+				height: 30px;
+			}
+			.old-radio:checked + label {
+				border: 2px solid pink;
+				background-color: white;
+				box-sizing: border-box;
+			}
+			.old-radio:checked + label:after {
+				content: '';
+				display: inline-block;
+				width: 15px;
+				height: 15px;
+				border-radius: 50%;
+				background-color: pink;
+			}
+			/* 把原多选框给隐藏，视觉上使用label标签替代 */
+			.check-box {
+				display: none;
+			}
+			.check-box + label {
+				display: inline-block;
+				vertical-align: middle;
+				width: 30px;
+				height: 30px;
+				background-color: pink;
+				border-radius: 5px;
+				text-align: center;
+				line-height: 30px;
+			}
+			.check-box:checked + label:after {
+				content:'\2714';
+				display: inline-block;
+				width: 20px;
+				height: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>伪元素实现</h1>
+		<div class="radio">
+			<p>单选框</p>
+			<input type="radio" name="study" id="man" class="old-radio">
+			<label for="man"></label>
+			<input type="radio" name="study" id="woman" class="old-radio">
+			<label for="woman"></label>
+		</div>
+		<div class="checkbox">
+			<p>多选框</p>
+			<input type="checkbox" name="a" id="checkbox" class="check-box">
+			<label for="checkbox"></label>
+			<input type="checkbox" name="a" id="checkbox2" class="check-box">
+			<label for="checkbox2"></label>
+		</div>
+	</body>
+</html>
